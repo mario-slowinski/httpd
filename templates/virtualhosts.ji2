@@ -1,0 +1,8 @@
+{% for host in VirtualHosts %}
+<VirtualHost *:{{ httpd_conf['Listen'][0] }}>
+ServerName {{ host['ServerName'] }}
+ServerAlias {{ host['ServerAlias'] }}
+DocumentRoot {{ host['DocumentRoot'] }}
+</VirtualHost>
+
+{% endfor %}
