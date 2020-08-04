@@ -1,0 +1,57 @@
+- name: "Install required software"
+  tags: install
+  dnf:
+    state: latest
+    name:
+    - httpd
+    - python3-libselinux
+    - python3-policycoreutils
+
+- name: "Allow services in firewall"
+  tags: firewall
+  firewalld:
+    service: "{{ item[1] }}"
+    state: enabled
+    permanent: yes
+    immediate: yes
+    zone: "{{ item[0]['name'] }}"
+  loop: "{{ firewalld['zones'] | subelements('services') }}"
+
+- name: "Allow ports in firewall"
+  tags: firewall
+  firewalld:
+    port: "{{ item[1] }}/tcp"
+    state: enabled
+    permanent: yes
+    immediate: yes
+    zone: "{{ item[0]['name'] }}"
+  loop: "{{ firewalld['zones'] | subelements('ports') }}"
+
+- name: "Allow ports in SELinux"
+  tags: firewall
+  seport:
+    ports: "{{ item | string }}"
+    proto: tcp
+    setype: http_port_t
+  loop: "{{ firewalld['zones'] | map(attribute='ports') | flatten | unique }}"
+
+- name: "Set 'Listen' ports in 'httpd.conf'"
+  tags: config
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regex: "Listen"
+    line: "Listen {{ item }}"
+    validate: httpd -t -f %s
+  loop: "{{ httpd_conf['Listen'] }}"
+  notify: "Restart httpd service"
+
+- name: "Create VirtualHosts in 'virtualhosts.conf'"
+  tags: config
+  template:
+    src: virtualhosts.ji2
+    dest: /etc/httpd/conf.d/virtualhosts.conf
+    group: apache
+    mode: 0644
+    setype: httpd_config_t
+    validate: httpd -t -f /etc/httpd/conf/httpd.conf
+  notify: "Restart httpd service"

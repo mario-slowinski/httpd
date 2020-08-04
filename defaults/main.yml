@@ -1,0 +1,15 @@
+firewalld:
+  zones: 
+  - name: public
+    services:
+    - http
+    - https
+    ports:
+    - 80
+httpd_conf:
+  Listen:
+  - 80
+VirtualHosts:
+- ServerName: "{{ inventory_hostname }}"
+  ServerAlias: "{{ inventory_hostname }}"
+  DocumentRoot: /var/www/html
