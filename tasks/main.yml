@@ -42,7 +42,7 @@
     regex: "Listen"
     line: "Listen {{ item }}"
     validate: httpd -t -f %s
-  loop: "{{ httpd_conf['Listen'] }}"
+  loop: "{{ conf['Listen'] }}"
   notify: "Restart httpd service"
 
 - name: "Create VirtualHosts in 'virtualhosts.conf'"
@@ -53,5 +53,5 @@
     group: apache
     mode: 0644
     setype: httpd_config_t
-    validate: httpd -t -f /etc/httpd/conf/httpd.conf
+    validate: httpd -t -f %s
   notify: "Restart httpd service"

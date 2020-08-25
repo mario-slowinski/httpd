@@ -6,7 +6,7 @@ firewalld:
     - https
     ports:
     - 80
-httpd_conf:
+conf:
   Listen:
   - 80
 VirtualHosts:
