@@ -1,0 +1,19 @@
+- name: "Create VirtualHosts in 'virtualhosts.conf'"
+  tags: vhost
+  template:
+    src: virtualhosts.ji2
+    dest: /etc/httpd/conf.d/virtualhosts.conf
+    group: apache
+    mode: 0644
+    setype: httpd_config_t
+  notify: "Restart httpd service"
+
+- name: "Set 'Listen' ports in 'httpd.conf'"
+  tags: httpd
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regex: "Listen"
+    line: "Listen {{ item }}"
+    validate: httpd -t -f %s
+  loop: "{{ conf['Listen'] }}"
+  notify: "Restart httpd service"

@@ -1,0 +1,7 @@
+- name: "dnf install rpms"
+  dnf:
+    state: latest
+    name:
+    - httpd
+    - python3-libselinux
+    - python3-policycoreutils
