@@ -1,0 +1,4 @@
+dependencies:
+- role: service
+  service_rpms: "{{ apache_rpms }}"
+  service_firewalld: "{{ apache_firewalld }}"
