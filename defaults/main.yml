@@ -1,3 +1,12 @@
+apache_firewalld:
+  zones:
+  - name: public
+    services:
+    - http
+    - https
+    ports: []
+
+
 apache_VirtualHosts:
 - ServerName: "{{ inventory_hostname }}"
   Listen: 80
