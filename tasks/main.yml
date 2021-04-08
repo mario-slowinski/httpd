@@ -1,3 +1,3 @@
 - name: "Configure httpd"
   tags: apache-config
-  include_tasks: config.yml
+  import_tasks: config.yml
