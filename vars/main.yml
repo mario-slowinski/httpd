@@ -1,13 +1,5 @@
-apache_rpms:
+apache_pkgs:
 - httpd
 - python3-libselinux
 - python3-policycoreutils
-
-apache_firewalld:
-  zones:
-  - name: public
-    services:
-    - http
-    - https
-    ports: []
 
