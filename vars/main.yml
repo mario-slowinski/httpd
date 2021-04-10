@@ -1,5 +1,6 @@
 apache_pkgs:
-- httpd
-- python3-libselinux
-- python3-policycoreutils
+- name:
+  - httpd
+  - python3-libselinux
+  - python3-policycoreutils
 
