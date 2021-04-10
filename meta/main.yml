@@ -48,6 +48,5 @@ galaxy_info:
 
 dependencies:
 - role: service
-  vars:
-    service_pkgs: "{{ apache_pkgs }}"
-    service_firewalld: "{{ apache_firewalld }}"
+  service_pkgs: "{{ apache_pkgs }}"
+  service_firewalld: "{{ apache_firewalld }}"
