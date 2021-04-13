@@ -1,11 +1,3 @@
-- name: "Allow ports in SELinux"
-  tags: apache-config-seport
-  community.general.seport:
-    ports: "{{ item | string }}"
-    proto: tcp
-    setype: http_port_t
-  loop: "{{ apache_VirtualHosts | map(attribute='Listen') | list }}"
-
 - name: "Create VirtualHosts in 'virtualhosts.conf'"
   tags: apache-config-vhost
   template:
