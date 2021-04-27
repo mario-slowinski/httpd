@@ -1,4 +1,4 @@
-{% for host in apache_VirtualHosts %}
+{% for host in httpd_VirtualHosts %}
 <VirtualHost *:{{ host['Listen'] }}>
 ServerName {{ host['ServerName'] }}
 ServerAlias {{ host['ServerAlias'] }}

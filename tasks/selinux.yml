@@ -4,4 +4,4 @@
     ports: "{{ item | string }}"
     proto: tcp
     setype: http_port_t
-  loop: "{{ apache_VirtualHosts | map(attribute='Listen') | list }}"
+  loop: "{{ httpd_VirtualHosts | map(attribute='Listen') | list }}"

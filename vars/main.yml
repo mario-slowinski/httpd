@@ -1,5 +1,5 @@
 ---
-apache_pkgs:
+httpd_pkgs:
   - name:
       - httpd
       - python3-libselinux

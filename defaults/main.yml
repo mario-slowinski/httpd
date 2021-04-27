@@ -1,5 +1,5 @@
 ---
-apache_firewalld:
+httpd_firewalld:
   zones:
     - name: public
       services:
@@ -8,7 +8,7 @@ apache_firewalld:
       ports: []
 
 
-apache_VirtualHosts:
+httpd_VirtualHosts:
   - ServerName: "{{ inventory_hostname }}"
     Listen: 80
     ServerAlias: "{{ inventory_hostname }}"
