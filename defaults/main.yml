@@ -1,15 +1,15 @@
+---
 apache_firewalld:
   zones:
-  - name: public
-    services:
-    - http
-    - https
-    ports: []
+    - name: public
+      services:
+        - http
+        - https
+      ports: []
 
 
 apache_VirtualHosts:
-- ServerName: "{{ inventory_hostname }}"
-  Listen: 80
-  ServerAlias: "{{ inventory_hostname }}"
-  DocumentRoot: /var/www/html
-
+  - ServerName: "{{ inventory_hostname }}"
+    Listen: 80
+    ServerAlias: "{{ inventory_hostname }}"
+    DocumentRoot: /var/www/html

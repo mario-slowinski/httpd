@@ -1,11 +1,12 @@
+---
 - name: "Configure httpd server"
   tags:
-  - apache
-  - apache-config
-  import_tasks: config.yml
+    - apache
+    - apache.config
+  ansible.builtin.import_tasks: config.yml
 
 - name: "Configure SELinux for httpd server"
   tags:
-  - apache
-  - apache-selinux
-  import_tasks: selinux.yml
+    - apache
+    - apache.selinux
+  ansible.builtin.import_tasks: selinux.yml

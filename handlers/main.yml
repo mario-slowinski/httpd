@@ -1,3 +1,4 @@
+---
 - name: "Restart httpd service"
   service:
     enabled: true
