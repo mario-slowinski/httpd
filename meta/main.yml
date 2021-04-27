@@ -20,5 +20,5 @@ galaxy_info:
 dependencies:
   - src: https://github.com/mario-slowinski/service
     name: service
-    service_pkgs: "{{ apache_pkgs }}"
-    service_firewalld: "{{ apache_firewalld }}"
+    service_pkgs: "{{ httpd_pkgs }}"
+    service_firewalld: "{{ httpd_firewalld }}"
