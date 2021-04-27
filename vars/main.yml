@@ -4,3 +4,12 @@ httpd_pkgs:
       - httpd
       - python3-libselinux
       - python3-policycoreutils
+
+
+httpd_config:
+  httpd: /etc/httpd/conf/httpd.conf
+  virtualhosts: /etc/httpd/conf.d/virtualhosts.conf
+  owner: root
+  group: apache
+  mode: 0o644
+  setype: etc_t
