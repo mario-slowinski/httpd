@@ -1,6 +1,7 @@
+---
 - name: "Create VirtualHosts in 'virtualhosts.conf'"
-  tags: apache-config-vhost
-  template:
+  tags: apache.config.vhost
+  ansible.builtin.template:
     src: virtualhosts.ji2
     dest: /etc/httpd/conf.d/virtualhosts.conf
     group: apache
@@ -9,8 +10,8 @@
   notify: "Restart httpd service"
 
 - name: "Set 'Listen' ports in 'httpd.conf'"
-  tags: apache-config-httpd
-  lineinfile:
+  tags: apache.config.httpd
+  ansible.builtin.lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regex: "Listen"
     line: "Listen {{ item }}"
