@@ -3,16 +3,17 @@
   tags: httpd.config.vhost
   ansible.builtin.template:
     src: virtualhosts.ji2
-    dest: /etc/httpd/conf.d/virtualhosts.conf
-    group: apache
-    mode: 0644
-    setype: httpd_config_t
+    dest: "{{ httpd_config['virtualhosts'] }}"
+    owner: "{{ httpd_config['owner'] }}"
+    group: "{{ httpd_config['group'] }}"
+    mode: "{{ httpd_config['mode'] }}"
+    setype: "{{ httpd_config['setype'] }}"
   notify: "Restart httpd service"
 
 - name: "Set 'Listen' ports in 'httpd.conf'"
-  tags: httpd.config.httpd
+  tags: httpd.config.port
   ansible.builtin.lineinfile:
-    path: /etc/httpd/conf/httpd.conf
+    path: "{{ httpd_config['httpd'] }}"
     regex: "Listen"
     line: "Listen {{ item }}"
     validate: httpd -t -f %s
