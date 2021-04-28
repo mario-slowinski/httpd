@@ -1,8 +1,25 @@
+{% set ns = namespace() %}
 {% for host in httpd_VirtualHosts %}
 <VirtualHost *:{{ host['Listen'] }}>
 ServerName {{ host['ServerName'] }}
 ServerAlias {{ host['ServerAlias'] }}
 DocumentRoot {{ host['DocumentRoot'] }}
+{% for directive in host['directives'] %}
+{% for key,value in directive.items() %}
+{% if key != 'options' %}
+{% set ns.directive = key %}
+<{{ key }} {{ value }} >
+{% endif %}
+{% if key == 'options' %}
+{% for option in value %}
+{% for key,value in option.items() %}
+  {{ key }} {{ value }}
+{% endfor %}
+{% endfor %}
+</{{ ns.directive }}>
+{% endif %}
+{% endfor %}
+{% endfor %}
 </VirtualHost>
 
 {% endfor %}

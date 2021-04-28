@@ -13,3 +13,7 @@ httpd_VirtualHosts:
     Listen: 80
     ServerAlias: "{{ inventory_hostname }}"
     DocumentRoot: /var/www/html
+    directives:
+      - Directory: "/var/www/html"
+        options:
+          - Require: "all granted"
