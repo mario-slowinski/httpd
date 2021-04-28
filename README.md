@@ -1,13 +1,14 @@
 httpd
 =====
 
-Ansible role to configure httpd server.
+Ansible role to configure [httpd server](https://httpd.apache.org/docs/current/).
 
 Requirements
 ------------
 
 * [ansible.builtin](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html)
 * [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/)
+* [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/)
 
 Role Variables
 --------------
@@ -22,6 +23,8 @@ Role Variables
       Listen: 80
       ServerAlias: ""
       DocumentRoot: ""
+      directives: []          # list of Apache config directives
+        - options: []         # list of Apache directive options
   ```
 
 * vars
@@ -59,6 +62,17 @@ Example Playbook
   ```yaml
   - hosts: servers
     gather_facts: true  # to get ansible_os_family
+    vars:
+      httpd_VirtualHosts:
+        - ServerName: "{{ inventory_hostname }}"
+          Listen: 80
+          ServerAlias: "{{ inventory_hostname }}"
+          DocumentRoot: /var/www/html
+          directives:
+            - Directory: "/var/www/html"
+              options:
+                - Require: "all granted"
+
     roles:
       - role: httpd
   ```
