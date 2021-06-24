@@ -1,4 +1,6 @@
 ---
+httpd_service: "httpd"
+
 httpd_firewalld:
   zones:
     - name: public
