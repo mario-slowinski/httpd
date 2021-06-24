@@ -16,22 +16,28 @@ Role Variables
 * defaults
 
   ```yaml
-  httpd_firewalld: {}         # firewalld settings
+  httpd_firewalld: {}     # firewalld settings
 
-  httpd_VirtualHosts: []      # list of VirtualHosts
+  httpd_VirtualHosts: []  # list of VirtualHosts
     - ServerName: ""
       Listen: 80
       ServerAlias: ""
       DocumentRoot: ""
-      directives: []          # list of Apache config directives
-        - options: []         # list of Apache directive options
+      directives: []      # list of Apache config directives
+        - oneline: ""     # one line directive, like Alias, starts lowercase
+        - Block: ""       # block directive, like Directory, starts uppercase
+        - options: []     # list of previous block directive options
   ```
 
 * vars
 
   ```yaml
+  httpd_service: ""       # systemd service name
+
   httpd_pkgs:
-    - name: []                # list of httpd server software packages
+    - name: []            # list of httpd server software packages
+
+  httpd_config: {}        # httpd configuration file attributes
   ```
 
 Dependencies
@@ -41,6 +47,7 @@ Dependencies
   * [software](https://github.com/mario-slowinski/software)
 
 Tags
+----
 
 * httpd.config
   * httpd.config.vhost
@@ -62,16 +69,6 @@ Example Playbook
   ```yaml
   - hosts: servers
     gather_facts: true  # to get ansible_os_family
-    vars:
-      httpd_VirtualHosts:
-        - ServerName: "{{ inventory_hostname }}"
-          Listen: 80
-          ServerAlias: "{{ inventory_hostname }}"
-          DocumentRoot: /var/www/html
-          directives:
-            - Directory: "/var/www/html"
-              options:
-                - Require: "all granted"
 
     roles:
       - role: httpd
