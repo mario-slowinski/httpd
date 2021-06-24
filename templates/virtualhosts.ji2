@@ -7,8 +7,12 @@ DocumentRoot {{ host['DocumentRoot'] }}
 {% for directive in host['directives'] %}
 {% for key,value in directive.items() %}
 {% if key != 'options' %}
+{% if key[0] == key[0] | lower %}
+{{ key[0]|upper}}{{ key[1:] }} {{ value }}
+{% else %}
 {% set ns.directive = key %}
 <{{ key }} {{ value }} >
+{% endif %}
 {% endif %}
 {% if key == 'options' %}
 {% for option in value %}
