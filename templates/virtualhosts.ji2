@@ -1,5 +1,5 @@
 {% for virtualhost in httpd_VirtualHosts %}
-<VirtualHost {{ virtualhost['name'] | default('*') }}:{{ virtualhost['Listen'] }}>
+<VirtualHost {{ virtualhost['Ip'] | default('*') }}:{{ virtualhost['Listen'] }}>
 ServerName {{ virtualhost['ServerName'] }}
 ServerAlias {{ virtualhost['ServerAlias'] }}
 DocumentRoot {{ virtualhost['DocumentRoot'] }}

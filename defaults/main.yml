@@ -10,9 +10,10 @@ httpd_firewalld:
 
 httpd_configs: []
 
+
 httpd_VirtualHosts:
-  - ServerName: "{{ inventory_hostname }}"
-    Listen: 80
+  - Listen: 80
+    ServerName: "{{ inventory_hostname }}"
     ServerAlias: "{{ inventory_hostname }}"
     DocumentRoot: /var/www/html
     directives:
