@@ -18,9 +18,17 @@ Role Variables
   ```yaml
   httpd_firewalld: {}     # firewalld settings
 
+  httpd_configs: []       # list of conf.d includes
+    - name: "linux"       # name of conf.d include file
+      directives: []      # list of Apache config directives
+        - oneline: ""     # one line directive, like Alias, starts lowercase
+        - Block: ""       # block directive, like Directory, starts uppercase
+        - options: []     # list of previous block directive options
+
   httpd_VirtualHosts: []  # list of VirtualHosts
-    - ServerName: ""
-      Listen: 80
+    - Listen: 80
+      Ip: ""              # server IP address to listen on (optional)
+      ServerName: ""
       ServerAlias: ""
       DocumentRoot: ""
       directives: []      # list of Apache config directives
