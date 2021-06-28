@@ -1,3 +1,10 @@
+{%- macro format(_key, _value) -%}
+{%- if _value is string -%}
+{{ _key[0]|upper }}{{ _key[1:] }} {{ _value -}}
+{%- elif _value is sequence -%}
+{{ _key[0]|upper }}{{ _key[1:] }} {{ _value | join(' ') -}}
+{%- endif -%}
+{%- endmacro -%}
 {% if item is defined -%}
   {%- set directives = item['directives'] %}
 {% elif virtualhost is defined -%}
@@ -8,16 +15,16 @@
 {% for key,value in directive.items() %}
 {% if key != 'options' %}
 {% if key[0] == key[0] | lower %}
-{{ key[0]|upper}}{{ key[1:] }} {{ value }}
+{{ format(key,value) }}
 {% else %}
 {% set ns.directive = key %}
-<{{ key }} {{ value }} >
+<{{ format(key,value) }} >
 {% endif %}
 {% endif %}
 {% if key == 'options' %}
 {% for option in value %}
 {% for key,value in option.items() %}
-  {{ key }} {{ value }}
+  {{ format(key,value) }}
 {% endfor %}
 {% endfor %}
 </{{ ns.directive }}>
