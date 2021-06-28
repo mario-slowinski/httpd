@@ -1,29 +1,9 @@
-{% set ns = namespace() %}
-{% for host in httpd_VirtualHosts %}
-<VirtualHost *:{{ host['Listen'] }}>
-ServerName {{ host['ServerName'] }}
-ServerAlias {{ host['ServerAlias'] }}
-DocumentRoot {{ host['DocumentRoot'] }}
-{% for directive in host['directives'] %}
-{% for key,value in directive.items() %}
-{% if key != 'options' %}
-{% if key[0] == key[0] | lower %}
-{{ key[0]|upper}}{{ key[1:] }} {{ value }}
-{% else %}
-{% set ns.directive = key %}
-<{{ key }} {{ value }} >
-{% endif %}
-{% endif %}
-{% if key == 'options' %}
-{% for option in value %}
-{% for key,value in option.items() %}
-  {{ key }} {{ value }}
-{% endfor %}
-{% endfor %}
-</{{ ns.directive }}>
-{% endif %}
-{% endfor %}
-{% endfor %}
+{% for virtualhost in httpd_VirtualHosts %}
+<VirtualHost {{ virtualhost['name'] | default('*') }}:{{ virtualhost['Listen'] }}>
+ServerName {{ virtualhost['ServerName'] }}
+ServerAlias {{ virtualhost['ServerAlias'] }}
+DocumentRoot {{ virtualhost['DocumentRoot'] }}
+{% include 'directives.ji2' %}
 </VirtualHost>
 
 {% endfor %}
