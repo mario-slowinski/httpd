@@ -8,6 +8,8 @@ httpd_firewalld:
       ports: []
 
 
+httpd_configs: []
+
 httpd_VirtualHosts:
   - ServerName: "{{ inventory_hostname }}"
     Listen: 80
