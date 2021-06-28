@@ -30,7 +30,9 @@
   ansible.builtin.lineinfile:
     path: "{{ httpd_config['httpd'] }}"
     regex: "Listen"
-    line: "Listen {{ item }}"
+    line: "Listen {{ item['Ip']+':' if item['Ip'] is defined }}{{ item['Listen'] }}"
     validate: httpd -t -f %s
-  loop: "{{ httpd_VirtualHosts | map(attribute='Listen') | list }}"
+  loop: "{{ httpd_VirtualHosts }}"
+  loop_control:
+    label: "{{ item['Ip']+':' if item['Ip'] is defined }}{{ item['Listen'] }}"
   notify: "Restart httpd service"
