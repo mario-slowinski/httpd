@@ -1,0 +1,15 @@
+---
+Solaris_service: "http:apache24"
+
+
+Solaris_pkgs:
+  - name:
+      - web/server/apache-24
+
+
+Solaris_config:
+  httpd: /etc/apache2/2.4/httpd.conf
+  virtualhosts: /etc/apache2/2.4/conf.d/virtualhosts.conf
+  owner: root
+  group: bin
+  mode: 0o644
