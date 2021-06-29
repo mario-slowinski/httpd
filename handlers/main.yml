@@ -3,4 +3,4 @@
   service:
     enabled: true
     state: restarted
-    name: httpd
+    name: "{{ httpd_service }}"
