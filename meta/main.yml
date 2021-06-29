@@ -11,6 +11,9 @@ galaxy_info:
     - name: GenericLinux
       versions:
         - any
+    - name: Solaris
+      versions:
+        - any
 
   galaxy_tags:
     - httpd
