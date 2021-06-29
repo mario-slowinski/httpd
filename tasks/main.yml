@@ -10,3 +10,4 @@
     - httpd
     - httpd.selinux
   ansible.builtin.import_tasks: selinux.yml
+  when: ansible_os_family in ['RedHat','Debian']
