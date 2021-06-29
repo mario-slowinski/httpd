@@ -7,7 +7,7 @@
     owner: "{{ httpd_config['owner'] }}"
     group: "{{ httpd_config['group'] }}"
     mode: "{{ httpd_config['mode'] }}"
-    setype: "{{ httpd_config['setype'] }}"
+    setype: "{{ httpd_config['setype'] | default(omit) }}"
   loop: "{{ httpd_configs }}"
   loop_control:
     label: "{{ httpd_config['virtualhosts'] | dirname }}/{{ item['name'] }}.conf"
@@ -21,7 +21,7 @@
     owner: "{{ httpd_config['owner'] }}"
     group: "{{ httpd_config['group'] }}"
     mode: "{{ httpd_config['mode'] }}"
-    setype: "{{ httpd_config['setype'] }}"
+    setype: "{{ httpd_config['setype'] | default(omit) }}"
   when: httpd_VirtualHosts | length > 0
   notify: "Restart httpd service"
 
