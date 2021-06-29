@@ -1,14 +1,15 @@
 ---
-httpd_service: "httpd"
+RedHat_service: "httpd"
 
-httpd_pkgs:
+
+RedHat_pkgs:
   - name:
       - httpd
       - python3-libselinux
       - python3-policycoreutils
 
 
-httpd_config:
+RedHat_config:
   httpd: /etc/httpd/conf/httpd.conf
   virtualhosts: /etc/httpd/conf.d/virtualhosts.conf
   owner: root
