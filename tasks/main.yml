@@ -3,11 +3,11 @@
   tags:
     - httpd
     - httpd.config
-  ansible.builtin.import_tasks: config.yml
+  ansible.builtin.import_tasks: config.yaml
 
 - name: "Configure SELinux for httpd server"
   tags:
     - httpd
     - httpd.selinux
-  ansible.builtin.import_tasks: selinux.yml
+  ansible.builtin.import_tasks: selinux.yaml
   when: ansible_os_family in ['RedHat','Debian']
