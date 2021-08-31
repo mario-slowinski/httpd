@@ -1,6 +1,8 @@
 ---
 - name: "Restart httpd service"
-  service:
-    enabled: true
+  ansible.builtin.service:
+    name: "{{ service_name }}"
     state: restarted
-    name: "{{ httpd_service }}"
+    enabled: true
+  become: true
+  when: test_dir is not defined
